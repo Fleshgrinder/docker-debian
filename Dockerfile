@@ -1,9 +1,8 @@
 FROM golang:1-stretch
 
-ENV GOPATH=/usr/local/src PATH=${GOPATH}:${GOPATH}/bin:${PATH}
+ENV GOPATH=/usr/local
 COPY bin/ /usr/bin/
 SHELL ["/bin/bash", "-euxc"]
-WORKDIR ${GOPATH}
+WORKDIR /usr/local/src
 
-RUN apt-install build-essential ca-certificates curl file git jq make tar \
- && mkdir -p "${GOPATH}/bin" "${GOPATH}/src"
+RUN apt-install build-essential ca-certificates curl file git jq make tar
