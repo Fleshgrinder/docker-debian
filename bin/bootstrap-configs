@@ -1,0 +1,17 @@
+#!/bin/bash
+[[ -v VERBOSE ]] && set -x
+set -eu
+
+env_vars=
+for line in $(env); do
+    env_vars="${env_vars} \$${line%=*}"
+done
+
+shopt -s globstar nullglob
+for src in /srv/*/config/**/*; do
+    [[ -f "${src}" ]] || continue
+    dst=${src##*/config/}
+    dst=/usr/local/etc/${dst}
+    mkdir -p "$(dirname "${dst}")"
+    envsubst "${env_vars}" < "${src}" > "${dst}"
+done

@@ -1,0 +1,7 @@
+#!/bin/bash
+[[ -v VERBOSE ]] && set -x
+set -eu
+
+if [[ -v HEALTHCHECK_PORT ]]; then
+    curl --fail-early --head "http://127.0.0.1:${HEALTHCHECK_PORT}${HEALTHCHECK_PATH:-/}" || exit 1
+fi

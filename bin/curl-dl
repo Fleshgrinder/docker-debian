@@ -1,0 +1,5 @@
+#!/bin/bash
+[[ -v VERBOSE ]] && set -x
+set -eu
+
+exec curl --location --retry 3 --show-error --silent "$@"

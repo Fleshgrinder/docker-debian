@@ -1,0 +1,38 @@
+#!/bin/bash
+[[ -v VERBOSE ]] && set -x
+set -eu
+
+# Helper function to retry apt commands upon failure. Networks are inherently
+# unstable and this accounts for that by retrying three times.
+function apt-retry() {
+    local n=0
+
+    while (( n < 3 )); do
+        if DEBIAN_FRONTEND=noninteractive apt-get -qy "$@" >/dev/null; then
+            return
+        fi
+        sleep 1s
+        n+=1
+    done
+
+    exit 1
+}
+
+# Ensures that that no documentation is installed.
+mkdir -p /etc/dpkg/dpkg.conf.d
+echo "path-exclude /usr/share/*" > /etc/dpkg/dpkg.conf.d/01_nodoc
+
+# Default package sources are more than sufficient.
+echo 'deb http://deb.debian.org/debian stretch main' > /etc/apt/sources.list
+
+apt-retry update
+apt-retry install \
+    --auto-remove                       \
+    --no-allow-insecure-repositories    \
+    --no-install-recommends             \
+    --no-install-suggests               \
+    --show-upgraded                     \
+    "$@"
+
+# Always cleans everything to ensure that images stay small.
+rm -rf /var/lib/apt/lists/*

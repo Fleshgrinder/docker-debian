@@ -1,0 +1,6 @@
+#!/bin/bash
+[[ -v VERBOSE ]] && set -x
+set -eu
+
+bootstrap-configs
+exec "$@"

@@ -1,0 +1,10 @@
+#!/bin/bash
+[[ -v VERBOSE ]] && set -x
+set -eu
+
+readonly vendor=${1?argument 1 (vendor) is required}
+readonly project=${2?argument 2 (project) is required}
+readonly branch=${3-master}
+
+git clone --branch="${branch}" --depth=1 --quiet --single-branch "https://github.com/${vendor}/${project}.git"
+rm -r "${project}/.git"
