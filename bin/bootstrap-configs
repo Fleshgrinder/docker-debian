@@ -2,6 +2,12 @@
 [[ -v VERBOSE ]] && set -x
 set -eu
 
+if [[ -v EXTRA_HOSTS ]]; then
+    for extra_host in ${EXTRA_HOSTS}; do
+        echo "${extra_host/:/ }" >> /etc/hosts
+    done
+fi
+
 env_vars=
 for line in $(env); do
     env_vars="${env_vars} \$${line%=*}"
