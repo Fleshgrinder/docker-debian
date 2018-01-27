@@ -2,10 +2,20 @@
 [[ -v VERBOSE ]] && set -x
 set -eu
 
+# The `EXTRA_HOSTS` environment variable allows the injection totally dynamic
+# hosts via the environment option of `docker-compose`. `docker-compose` parses
+# the YAML before it evaluates the environment variables, this means in effect
+# that one cannot inject a dynamic amount of extra hosts via environment
+# variables.
+#
+# ## Examples
+#
+#     $ EXTRA_HOSTS='1.2.3.4 www.google.com
+#     5.6.7.9 www.fleshgrinder.com' docker-compose up
 if [[ -v EXTRA_HOSTS ]]; then
-    for extra_host in ${EXTRA_HOSTS}; do
-        echo "${extra_host/:/ }" >> /etc/hosts
-    done
+    while read -r extra_host; do
+        echo "${extra_host}" >> /etc/hosts
+    done <<< "${EXTRA_HOSTS}"
 fi
 
 env_vars=
