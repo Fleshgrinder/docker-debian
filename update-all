@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -eu
 
-for branch in $(git branch | tail -n +2); do
+while read remote; do
+    branch="${remote#origin/}"
     git checkout "${branch}"
     git merge origin/master
-    git push
-done
+done <<< "$(git branch -r | grep -Ev '(HEAD|master)')"
+git push --all origin
 git checkout master
