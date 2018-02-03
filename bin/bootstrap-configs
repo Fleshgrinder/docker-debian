@@ -5,16 +5,15 @@ set -eu
 # Ensure that all environment variables that are in the .env file are actually
 # present in the current environment.
 if [[ -f .env ]]; then
-    while read -r var; do
-        var=${var%%=*}
+    while read -r line; do
+        [[ "${line}" != #* ]] || continue
 
+        var=${line%%=*}
         if [[ ! -v "${var}" || -z "${var}" ]]; then
             echo "[err] ${var} must be defined and not empty" >&2
             exit 64
         fi
     done < .env
-else
-    echo "[warn] no .env file present" >&2
 fi
 
 # This creates a space separated list of all environment variable names.
