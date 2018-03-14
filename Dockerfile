@@ -12,6 +12,7 @@ RUN apt-install \
     ca-certificates \
     curl \
     file \
+    gettext-base \
     git \
     gnupg \
     jq \
@@ -29,6 +30,7 @@ RUN apt-install \
     tar \
     unzip \
     zlib1g-dev \
+ && rm -r /usr/bin/*gettext* /usr/share/java/libintl.jar \
  && curl-dl -ojfrog 'https://bintray.com/jfrog/jfrog-cli-go/download_file?file_path=1.14.0%2Fjfrog-cli-linux-amd64%2Fjfrog' \
  && chmod +x jfrog \
  && mv jfrog /usr/local/bin/
