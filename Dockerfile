@@ -3,6 +3,7 @@ FROM debian:stretch-slim
 COPY bin/ /usr/bin/
 SHELL ["/bin/bash", "-euxc"]
 WORKDIR /usr/local/src
+ENV PATH=/usr/local/src/.ci/bin:/usr/local/src/bin:${PATH}
 
 RUN apt-install \
     autoconf \
