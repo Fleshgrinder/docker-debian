@@ -27,6 +27,7 @@ RUN apt-install \
     make \
     pkg-config \
     re2c \
+    ssh \
     tar \
     unzip \
     zlib1g-dev \
