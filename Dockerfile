@@ -4,6 +4,7 @@ ENV GOPATH=/usr/local
 COPY bin/ /usr/bin/
 SHELL ["/bin/bash", "-euxc"]
 WORKDIR /usr/local/src
+ENV PATH=/usr/local/src/.ci/bin:/usr/local/src/bin:${PATH}
 
 RUN apt-install build-essential ca-certificates curl file git jq make tar gettext-base \
  && rm -r /usr/bin/*gettext* /usr/share/java/libintl.jar \
