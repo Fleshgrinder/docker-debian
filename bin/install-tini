@@ -3,5 +3,5 @@
 set -eu
 
 readonly latest=$(basename "$(curl -sLo /dev/null -w '%{url_effective}' https://github.com/krallin/tini/releases/latest)")
-curl-dl -o /usr/bin/tini "https://github.com/krallin/tini/releases/download/${latest}/tini-amd64" \
- && chmod 0755 /usr/bin/tini
+curl-dl -o /usr/bin/tini "https://github.com/krallin/tini/releases/download/${latest}/tini-amd64"
+chmod 0755 /usr/bin/tini
