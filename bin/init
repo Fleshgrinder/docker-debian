@@ -1,0 +1,11 @@
+#!/bin/bash
+[[ -v VERBOSE ]] && set -x
+set -eu
+
+flags=()
+if [[ -v VERBOSE ]]; then
+    flags+=(-vvv)
+fi
+
+bootstrap-configs
+exec /usr/bin/tini "${flags[@]}" -- "$@"
