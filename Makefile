@@ -1,6 +1,6 @@
 include .bootstrap.mk
 
-DOCKERFILES := $(shell ls -1 *.Dockerfile)
+DOCKERFILES := $(wildcard *.Dockerfile)
 IMAGE = fleshgrinder/debian
 
 # special chars for use in string substitution
