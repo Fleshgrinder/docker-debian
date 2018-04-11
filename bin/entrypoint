@@ -3,4 +3,12 @@
 set -eu
 
 bootstrap-configs
-exec "$@"
+
+cmd=()
+# to make sure shell form doesn't break we need to manually iterate
+# over args to avoid subsplitting during the assignment
+for arg in "$@"; do
+    cmd+=("$(envsubst <<< "${arg}")")
+done
+
+exec "${cmd[@]}"
