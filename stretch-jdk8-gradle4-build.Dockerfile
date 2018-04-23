@@ -1,4 +1,4 @@
-FROM gradle:4.4-jdk8
+FROM gradle:4.6-jdk8
 
 COPY bin/ /usr/bin/
 SHELL ["/bin/bash", "-euxc"]
