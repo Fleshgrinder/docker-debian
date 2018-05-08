@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-slim-stretch
+FROM openjdk:8u171-jre-slim-stretch
 
 COPY bin/ /usr/bin/
 ENTRYPOINT ["/usr/bin/entrypoint"]
