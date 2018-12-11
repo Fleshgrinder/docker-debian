@@ -6,7 +6,7 @@ readonly connectivity_check_url="${1?argument 1 (connectivity_check_url) is requ
 
 args=()
 if [[ -v VERBOSE ]]; then
-    args+=(-v)
+    args+=(--verbose)
 fi
 
 curl \
@@ -15,7 +15,7 @@ curl \
     --retry "${CONNECTIVITY_CHECK_RETRY_COUNT:-5}" \
     --retry-delay 0 \
     --retry-max-time "${CONNECTIVITY_CHECK_RETRY_MAX_TIME:-60}" \
-    -o /dev/null \
-    -s \
+    --output /dev/null \
+    --silent \
     "${args[@]}" \
-    "${connectivity_check_url}" 2>&1
+    "${connectivity_check_url}"
