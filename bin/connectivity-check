@@ -1,0 +1,21 @@
+#!/bin/bash
+[[ -v VERBOSE ]] && set -x
+set -eu
+
+readonly connectivity_check_url="${1?argument 1 (connectivity_check_url) is required}"
+
+args=()
+if [[ -v VERBOSE ]]; then
+    args+=(-v)
+fi
+
+curl \
+    --connect-timeout 1 \
+    --max-time 1 \
+    --retry "${CONNECTIVITY_CHECK_RETRY_COUNT:-5}" \
+    --retry-delay 0 \
+    --retry-max-time "${CONNECTIVITY_CHECK_RETRY_MAX_TIME:-60}" \
+    -o /dev/null \
+    -s \
+    "${args[@]}" \
+    "${connectivity_check_url}" 2>&1
