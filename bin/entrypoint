@@ -4,6 +4,10 @@ set -eu
 
 bootstrap-configs
 
+if [[ -v CONNECTIVITY_CHECK_URL ]]; then
+    connectivity-check "${CONNECTIVITY_CHECK_URL}"
+fi
+
 cmd=()
 # to make sure shell form doesn't break we need to manually iterate
 # over args to avoid subsplitting during the assignment
