@@ -13,9 +13,11 @@ curl \
     --connect-timeout 1 \
     --max-time 1 \
     --retry "${CONNECTIVITY_CHECK_RETRY_COUNT:-5}" \
+    --retry-connrefused \
     --retry-delay 0 \
     --retry-max-time "${CONNECTIVITY_CHECK_RETRY_MAX_TIME:-60}" \
     --output /dev/null \
     --silent \
+    --show-error \
     "${args[@]}" \
     "${connectivity_check_url}"
