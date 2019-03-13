@@ -25,6 +25,7 @@ RUN apt-install \
     libssl-dev \
     libtool \
     libxml2-dev \
+    libzip-dev \
     make \
     pkg-config \
     re2c \
